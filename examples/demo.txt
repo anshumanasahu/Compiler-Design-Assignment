@@ -1,0 +1,1 @@
+assign x to merge slice a by b with slice c by d
