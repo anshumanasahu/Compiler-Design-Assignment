@@ -16,17 +16,22 @@ print("📦 Verifying Project Structure...\n")
 
 for file in required_files:
     if not os.path.exists(file):
-        print(f"Missing: {file}")
+        print(f"❌ Missing: {file}")
     else:
-        print(f"Found: {file}")
+        print(f"✅ Found: {file}")
 
-if os.path.exists("output/result.py"):
-    with open("output/result.py") as f:
+print("\n🔍 Checking Output...")
+
+expected_snippet = "((17 % 10) + (29 % 10)) % 10"
+
+output_path = "output/result.py"
+if os.path.exists(output_path):
+    with open(output_path) as f:
         code = f.read().strip()
-    if code == "x = (a / b) + (c / d)":
-        print("\nOutput looks correct!")
+    if expected_snippet in code:
+        print("✅ Output looks correct for modadd!")
     else:
-        print("\nOutput file found but content may be wrong:")
+        print("⚠️ Output found but may be incorrect:")
         print(code)
 else:
-    print("\noutput/result.py not found. Run `python main.py` to generate it.")
+    print("❌ output/result.py not found. Run `python main.py` to generate it.")

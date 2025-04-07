@@ -1,30 +1,19 @@
 class ASTNode: pass
 
-class Assign(ASTNode):
-    def __init__(self, var, expr): self.var, self.expr = var, expr
-
-class Add(ASTNode):
-    def __init__(self, left, right): self.left, self.right = left, right
-
-class Divide(ASTNode):
-    def __init__(self, numerator, denominator):
-        self.numerator, self.denominator = numerator, denominator
+class ModAdd(ASTNode):
+    def __init__(self, a, b, mod):
+        self.a = a
+        self.b = b
+        self.mod = mod
 
 class Var(ASTNode):
-    def __init__(self, name): self.name = name
+    def __init__(self, value):
+        self.value = value
 
 def parse(words):
-    if words[0] != "assign" or words[3] != "merge":
-        raise ValueError("Invalid syntax")
-
-    var_name = words[1]
-
-    if words[4] != "slice" or words[6] != "by":
-        raise ValueError("First divide must be 'slice <a> by <b>'")
-    left = Divide(Var(words[5]), Var(words[7]))
-
-    if words[8] != "with" or words[9] != "slice" or words[11] != "by":
-        raise ValueError("Second divide must be 'slice <c> by <d>'")
-    right = Divide(Var(words[10]), Var(words[12]))
-
-    return Assign(var_name, Add(left, right))
+    if words[0] == "modadd":
+        if len(words) != 4:
+            raise ValueError("Expected format: modadd <a> <b> <mod>")
+        return ModAdd(Var(words[1]), Var(words[2]), Var(words[3]))
+    
+    raise ValueError("Unknown instruction")
