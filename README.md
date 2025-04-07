@@ -73,7 +73,7 @@ python main.py
 ```python
 total = ((20 % 7) + (30 % 7)) % 7
 ```
-This performs the calculation 100 ÷ 5 + 40 ÷ 4.
+This performs the calculation (20 % 7 + 30 % 7) % 7.
 
 ## 🧪 How It Works
 The process involves:
